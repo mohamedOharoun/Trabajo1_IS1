@@ -1,13 +1,15 @@
 package org.ulpgc.is1.model;
 
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Order {
     private Restaurant restaurant;
     private static int NEXT_ID = 0;
     private final int id;
 
-    private OrderItem[] orderitem = new OrderItem[0];
+    private final List<OrderItem> orderItems;
 
     private Customer customer;
 
@@ -16,6 +18,7 @@ public class Order {
         this.restaurant = restaurant;
         this.id = NEXT_ID++;
         this.customer = customer;
+        this.orderItems = new ArrayList<>();
     }
 
     public Restaurant getRestaurant() {
@@ -32,13 +35,12 @@ public class Order {
         return id;
     }
 
-    public OrderItem[] getOrderitem() {
-        return orderitem;
+    public OrderItem getOrderitem(int index) {
+        return orderItems.get(index);
     }
 
     public void addOrderItem(int quantity, Dish dish) {
-        this.orderitem = Arrays.copyOf(this.orderitem, this.orderitem.length + 1 );
-        this.orderitem[this.orderitem.length - 1] = new OrderItem(quantity, dish);
+        this.orderItems.add(new OrderItem(quantity, dish));
     }
 
     public Customer getCustomer() {
@@ -51,8 +53,8 @@ public class Order {
 
     public int price() {
         int price = 0;
-        for (int i = 0; i < this.orderitem.length; i++) {
-            price += orderitem[i].getQuantity()*  orderitem[i].getDish().getPrice();
+        for (OrderItem orderItem : this.orderItems) {
+            price += orderItem.getQuantity() * orderItem.getDish().getPrice();
         }
         return price;
     }

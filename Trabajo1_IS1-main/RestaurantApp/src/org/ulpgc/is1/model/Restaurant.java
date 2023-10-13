@@ -1,20 +1,21 @@
 package org.ulpgc.is1.model;
+import java.util.ArrayList;
+import java.util.List;
 
-
-import java.util.Arrays;
 public class Restaurant {
     private String name;
 
     private Phone phone;
 
-    private Menu[] menu;
+    private final List<Menu> menu;
 
-    private Order[] order = new Order[0];
+    private List<Order> order;
 
     public Restaurant(String name, Phone phone, Menu menu) {
         this.name = name;
         this.phone = phone;
-        this.menu = new Menu[] {menu};
+        this.menu  = new ArrayList<>();
+        this.menu.add(menu);
     }
 
     public String getName() {
@@ -33,21 +34,21 @@ public class Restaurant {
         this.phone = phone;
     }
 
-    public Menu[] getMenu() {
-        return menu;
+    public Menu getMenu(int  index) {
+
+        return menu.get(index);
     }
 
     public void addMenu(Menu menu) {
-        this.menu = Arrays.copyOf(this.menu, this.menu.length + 1);
-        this.menu[this.menu.length - 1] = menu;
+        this.menu.add(menu);
     }
 
-    public Order[] getOrder() {
-        return order;
+    public Order getOrder(int index) {
+
+        return order.get(index);
     }
 
     public void addOrder(Order order) {
-        this.order = Arrays.copyOf(this.order, this.order.length + 1);
-        this.order[this.order.length - 1] = order;
+        this.order.add(order);
     }
 }

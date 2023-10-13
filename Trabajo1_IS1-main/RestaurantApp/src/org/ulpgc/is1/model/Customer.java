@@ -1,12 +1,14 @@
 package org.ulpgc.is1.model;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
 public class Customer {
     private String name;
     private String surname;
-    private Order[] order = new Order[0];
-
+    private final List<Order> order;
     private Address address;
 
 
@@ -14,6 +16,7 @@ public class Customer {
         this.name = name;
         this.surname = surname;
         this.address = new Address(street, number, postalCode, city);
+        this.order = new ArrayList<Order>();
     }
 
 
@@ -33,13 +36,13 @@ public class Customer {
         this.surname = surname;
     }
 
-    public Order[] getOrder() {
-        return order;
+    public Order getOrder(int index) {
+
+        return order.get(index);
     }
 
     public void addOrder(Order order) {
-        this.order = Arrays.copyOf(this.order, this.order.length + 1);
-        this.order[this.order.length - 1] = order;
+        this.order.add(order);
     }
 
     public Address getAddress() {

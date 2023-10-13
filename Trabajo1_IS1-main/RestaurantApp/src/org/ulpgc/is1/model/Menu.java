@@ -1,10 +1,13 @@
 package org.ulpgc.is1.model;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
 public class Menu {
     private String name;
-    private  Dish[] dishes = new Dish[0];
+    private List<Dish> dishes;
 
     private MenuType menuType;
 
@@ -21,13 +24,12 @@ public class Menu {
         this.name = name;
     }
 
-    public Dish[] getDishes() {
-        return dishes;
+    public Dish getDishes(int index) {
+        return dishes.get(index);
     }
 
     public void addDish(Dish dishes) {
-        this.dishes = Arrays.copyOf(this.dishes, this.dishes.length + 1);
-        this.dishes[this.dishes.length - 1] = dishes;
+        this.dishes.add(dishes);
     }
 
     public MenuType getMenuType() {
