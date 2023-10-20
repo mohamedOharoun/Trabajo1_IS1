@@ -4,6 +4,7 @@ package org.ulpgc.is1.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Customer {
     private String name;
@@ -37,7 +38,6 @@ public class Customer {
     }
 
     public Order getOrder(int index) {
-
         return order.get(index);
     }
 
@@ -51,5 +51,18 @@ public class Customer {
 
     public void setAddress(String surname, String street, int number, int postalCode, String city) {
         this.address = new Address(street, number, postalCode, city);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(name, customer.name) && Objects.equals(surname, customer.surname);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, surname);
     }
 }

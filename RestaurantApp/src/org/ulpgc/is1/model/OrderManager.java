@@ -14,11 +14,15 @@ public class OrderManager {
     }
 
     public void addCustomer(String name, String surname, String street, int number, int postalCode, String city) {
-        customers.add(new Customer(name, surname, street, number, postalCode, city));
+        Customer customer = new Customer(name, surname, street, number, postalCode, city);
+        if(customers.contains(customer)) return;
+        customers.add(customer);
     }
 
     public void addRestaurant(String name, Phone phone, Menu menu) {
-        restaurants.add(new Restaurant(name, phone, menu));
+        Restaurant restaurant = new Restaurant(name, phone, menu);
+        if(restaurants.contains(restaurant)) return;
+        restaurants.add(restaurant);
     }
 
     public int getNumberDishes() {
@@ -48,11 +52,18 @@ public class OrderManager {
     }
 
     public void order(int indexCustomer, int indexRestaurant, int[] dishes, int[]quantities) {
-        Order order = new Order(getRestaurant(indexRestaurant), getCustomer(indexCustomer));
+        Customer customer = getCustomer(indexCustomer);
+        Restaurant restaurant = getRestaurant(indexRestaurant);
+        order(customer, restaurant, dishes, quantities);
+    }
 
+    public void order(Customer customer, Restaurant restaurant, int[] dishes, int[]quantities) {
+        Order order = new Order(restaurant, customer);
         for(int i = 0; i < dishes.length; i++) {
             order.addOrderItem(quantities[i], getDish(i));
         }
+        customer.addOrder(order);
+        restaurant.addOrder(order);
     }
 }
 
